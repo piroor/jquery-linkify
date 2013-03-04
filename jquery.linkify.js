@@ -1,5 +1,5 @@
 function linkify(string, buildHashtagUrl, includeW3, target) {
-  string = string.replace(/((http|https|ftp)\:\/\/|\bw{3}\.)[a-z0-9\-\.]+\.[a-z]{2,3}(:[a-z0-9]*)?\/?([a-z0-9\-\._\?\,\'\/\\\+&amp;%\$#\=~])*/gi, function(captured) {
+  string = string.replace(/(((?:(?:h?t)?t)?ps?|ftp)\:\/\/|\bw{3}\.)[a-z0-9\-\.]+\.[a-z]{2,3}(:[a-z0-9]*)?\/?([a-z0-9\-\._\?\,\'\/\\\+&amp;%\$#\=~])*/gi, function(captured) {
     var uri;
     if (captured.toLowerCase().indexOf("www.") == 0) {
       if (!includeW3) {
@@ -7,7 +7,7 @@ function linkify(string, buildHashtagUrl, includeW3, target) {
       }
       uri = "http://" + captured;
     } else {
-      uri = captured;
+      uri = captured.replace(/^(?:(?:h?t)?t)?(ps?:\/\/)/, "htt$1");
     }
     return "<a href=\"" + uri+ "\" target=\"" + target + "\">" + captured + "</a>";;
   });
